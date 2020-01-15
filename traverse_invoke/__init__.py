@@ -3,3 +3,6 @@
 __author__ = """Dan Lykov"""
 __email__ = 'lkvdan@gmail.com'
 __version__ = '0.1.0'
+
+from traverse_invoke import leaves
+from traverse_invoke.core import entry_traverse, entry_descent
