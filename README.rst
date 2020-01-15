@@ -53,7 +53,7 @@ Basic Usage
 
    traverse_invoke.entry_traverse(args, method, names)
 
-This will invoke `sys.version(**{version:foobar})`
+This will invoke ``sys.version(**{version:foobar})``
 
 **Traverse**
 
