@@ -40,6 +40,7 @@ Basic Usage
 ===========
 
 **Invoke method**
+
 .. code-block:: python
 
    import sys, traverse_invoke
