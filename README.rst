@@ -39,7 +39,8 @@ Features
 Basic Usage
 ===========
 
-**Invoke method**::
+**Invoke method**
+.. code-block:: python
 
    import sys, traverse_invoke
 
