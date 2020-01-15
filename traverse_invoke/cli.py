@@ -1,16 +1,16 @@
 """Console script for traverse_invoke."""
 import sys
 import click
+import importlib
 
 
 @click.command()
-def main(args=None):
+@click.argument('modname')
+def main(modname):
     """Console script for traverse_invoke."""
-    click.echo("Replace this message by putting your code into "
-               "traverse_invoke.cli.main")
-    click.echo("See click documentation at https://click.palletsprojects.com/")
+    mod = importlib.import_module(modname)
+    click.echo(mod.__name__)
     return 0
-
 
 if __name__ == "__main__":
     sys.exit(main())  # pragma: no cover
