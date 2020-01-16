@@ -15,7 +15,6 @@ def entry_descent(config, path, funcs, leaf=leaf):
 def entry_traverse(config, path, funcs, leaf=leaf):
     log.info(f'Config: {pp.pformat(config)}')
     log.info(f'Path {path}')
-    log.info(f'Leaf {leaf}')
     traverse(config, path, funcs, leaf=leaf)
 
 
