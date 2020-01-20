@@ -4,8 +4,8 @@ import sys
 log.remove()
 log.add(sys.stdout, level='INFO')
 pprint = pp.pprint
-
-leaf = None
+from traverse_invoke.leaves import kwarg
+leaf = kwarg
 
 def entry_descent(config, path, funcs, leaf=leaf):
     log.info(f'Config: {pp.pformat(config)}')
@@ -34,6 +34,25 @@ def descent(config, path, funcs, leaf=leaf):
     if len(path):
         descent(config, path, funcs)
 
+def node(fname, funcs, config, leaf=leaf):
+    f = funcs.get(fname)
+    if isinstance(f, dict):
+        return funcs[fname]
+    else:
+        leaf(f, config)
+        if f  is None:
+            return None
+        return funcs
+
+def node2(fname, funcs, config, leaf=leaf):
+    f = funcs.get(fname)
+    if isinstance(f, dict):
+        return funcs[fname]
+    else:
+        if f  is None:
+            config[fname] = TypeError()
+        return funcs
+
 ## Another way
 def traverse(config, path, funcs, leaf=leaf):
     while len(path) > 0:
@@ -44,18 +63,13 @@ def traverse(config, path, funcs, leaf=leaf):
         fname = path[0]
         this_config.update(config.get(fname, {}))
 
-        f = this_funcs.get(fname)
-        if f is None: break
-
+        f = node2(fname, this_funcs, this_config, leaf=leaf)
+        turn = leaf(this_funcs.get(fname), this_config)
+        print(2,f)
+        if turn: break
         path.pop(0)
-        if isinstance(f, dict):
-            traverse(this_config, path, this_funcs[fname], leaf=leaf)
-
-        leaf(f, this_config)
-        traverse(this_config, path, this_funcs, leaf=leaf)
+        traverse(this_config, path, f, leaf=leaf)
 
         log.info(f'Renurned traverse, path: {path}')
 
 
-from traverse_invoke import leaves
-leaf = leaves.kwarg
