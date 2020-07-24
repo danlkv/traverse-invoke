@@ -102,7 +102,7 @@ Want to create deals in both CRMs:
 .. code-block:: python
 
     for lead in leads:
-        fpath = 'CRM systems.Hubspot.create lead.Salesforce.create lead'
+        fpath = 'CRM systems.Hubspot.create lead.Salesforce.create lead'.split('.')
 
         traverse_invoke(lead, fpath, funcs)
 
