@@ -96,7 +96,7 @@ Config:
           Hubspot:
             name: Mark Twain
 
-
+Note that except generic properties there are specific values for each CRM, and CRM methods.
 Want to create deals in both CRMs:
 
 .. code-block:: python
@@ -107,3 +107,8 @@ Want to create deals in both CRMs:
         traverse_invoke(lead, fpath, funcs)
 
 This example is in examples folder
+
+
+.. code-block:: bash
+    Salesforce lead data {'name': 'Mark', 'phone': 1000000000, ... }
+    Lead data {'name': 'Mark Twain', 'phone': 111210111, ... 
