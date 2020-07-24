@@ -28,7 +28,7 @@ data = yaml.safe_load(
             create deal:
                 phone: 10012000
           Hubspot:
-            Name: Mark Twain
+            name: Mark Twain
     '''
                   )
 
