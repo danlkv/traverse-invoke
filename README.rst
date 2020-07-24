@@ -17,7 +17,6 @@ Traverse invoke
 A nested method [computation model] for nested data
 
 This shit is a blessing. I don't know anything like this except maybe lambda. 
-I'll think about Turing-completeness and meta complexity of this.
 
 Please do yourself a favor and read the source. 
 
@@ -58,3 +57,53 @@ This will invoke ``sys.version(**{version:foobar})``
 **Traverse**
 
 see test
+
+
+Discussion
+==========
+
+Traverse Invoke allows mapping nested data with matching functions. Given following dictionary:
+
+
+Let's say we have a complicated namespace of functions
+
+.. code-block:: python
+
+    funcs = {
+        'CRM systems':{
+            'Hubspot': {
+                'create lead':lambda **data: print('Lead data', data)
+                ,'create deal':lambda **data: print('Deal data', data)
+                }
+            ,'Salesforce': {
+                'create lead':lambda **data: print('Salesforce lead data', data)
+                ,'create deal':lambda **data: print('Salesforce deal data', data)
+                }
+
+            }
+
+Config:
+
+.. code-block:: yaml
+
+    Leads:
+        - name: Mark
+          phone: 111210111
+          Salesforce:
+            phone: 1000000000
+            create deal:
+                phone: 10012000
+          Hubspot:
+            name: Mark Twain
+
+
+Want to create deals in both CRMs:
+
+.. code-block:: python
+
+    for lead in leads:
+        fpath = 'CRM systems.Hubspot.create lead.Salesforce.create lead'
+
+        traverse_invoke(lead, fpath, funcs)
+
+This example is in examples folder

@@ -1,11 +1,17 @@
 import pprint as pp
 from loguru import logger as log
 import sys
-log.remove()
-log.add(sys.stdout, level='INFO')
-pprint = pp.pprint
 from traverse_invoke.leaves import kwarg
+pprint = pp.pprint
+
 leaf = kwarg
+
+log.remove()
+log.add(sys.stdout, level='ERROR')
+
+def enable_logging():
+    log.remove()
+    log.add(sys.stdout, level='DEBUG')
 
 def entry_descent(config, path, funcs, leaf=leaf):
     log.info(f'Config: {pp.pformat(config)}')
@@ -20,7 +26,7 @@ def entry_traverse(config, path, funcs, leaf=leaf):
 
 # One way
 def descent(config, path, funcs, leaf=leaf):
-    log.info(f'Current path: {path}')
+    log.debug(f'Current path: {path}')
     fname = path.pop(0)
     config.update(config.get(fname, {}))
     f = funcs.get(fname)
@@ -59,17 +65,14 @@ def traverse(config, path, funcs, leaf=leaf):
         this_config = config.copy()
         this_funcs = funcs.copy()
 
-        log.info(f'Current path: {path}')
+        log.debug(f'Current path: {path}')
         fname = path[0]
         this_config.update(config.get(fname, {}))
 
         f = node2(fname, this_funcs, this_config, leaf=leaf)
         turn = leaf(this_funcs.get(fname), this_config)
-        print(2,f)
         if turn: break
         path.pop(0)
         traverse(this_config, path, f, leaf=leaf)
-
-        log.info(f'Renurned traverse, path: {path}')
 
 

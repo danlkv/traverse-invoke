@@ -17,7 +17,7 @@ def city(name, population=100, healthy=False):
 def building(name, address, floors=3):
     print(f'{name} Building {address} with {floors} floors')
 
-def test_adapt():
+def not_test_adapt():
     funcs = {
         'earth': earth,
         'city': city,

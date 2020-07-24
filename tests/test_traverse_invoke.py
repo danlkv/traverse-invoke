@@ -6,14 +6,15 @@ import pytest
 
 from click.testing import CliRunner
 
-from traverse_invoke import traverse_invoke
+import traverse_invoke
 from traverse_invoke import cli
 
 import pprint as pp
 pprint = pp.pprint
 
 entry = traverse_invoke.entry_traverse
-import pprint as pp
+
+traverse_invoke.core.enable_logging()
 
 invocations = []
 

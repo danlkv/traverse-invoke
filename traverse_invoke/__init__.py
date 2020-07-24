@@ -6,4 +6,5 @@ __version__ = '0.1.1'
 
 from traverse_invoke import leaves
 from traverse_invoke.core import entry_traverse, entry_descent
+from traverse_invoke.core import enable_logging
 from traverse_invoke import readers
